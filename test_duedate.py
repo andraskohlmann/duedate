@@ -40,6 +40,12 @@ class TestDueDateCalculator(unittest.TestCase):
             'submit_time': get_time(THIS_WEEK, MONDAY, 14, 38),
             'turnaround_time': 5,
             'expected_due_date': get_time(THIS_WEEK, TUESDAY, 11, 38)
+        },
+        {
+            'test_case': 'Turnaround time is eight hours, submit date is friday, due date is next week',
+            'submit_time': get_time(THIS_WEEK, FRIDAY, 14, 31),
+            'turnaround_time': 8,
+            'expected_due_date': get_time(NEXT_WEEK, MONDAY, 14, 31)
         }
     )
     def test_due_date_calculation(self, test_case, submit_time, turnaround_time, expected_due_date):
