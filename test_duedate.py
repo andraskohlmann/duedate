@@ -7,7 +7,7 @@ THIS_WEEK_MONDAY = datetime.today() - timedelta(days=datetime.today().weekday())
 THIS_WEEK_MONDAY = THIS_WEEK_MONDAY.replace(hour=0, minute=0, second=0, microsecond=0)
 
 MONDAY, TUESDAY, FRIDAY = 0, 1, 4
-THIS_WEEK, NEXT_WEEK = 0, 1
+THIS_WEEK, NEXT_WEEK, NEXT_NEXT_WEEK = 0, 1, 2
 
 def get_time(week, day, hour, minute):
     days = week * 7 + day
@@ -46,6 +46,12 @@ class TestDueDateCalculator(unittest.TestCase):
             'submit_time': get_time(THIS_WEEK, FRIDAY, 14, 31),
             'turnaround_time': 8,
             'expected_due_date': get_time(NEXT_WEEK, MONDAY, 14, 31)
+        },
+        {
+            'test_case': 'Turnaround time is more than a week, landing on a weekend, due date is next Monday',
+            'submit_time': get_time(THIS_WEEK, MONDAY, 9, 0),
+            'turnaround_time': 80,
+            'expected_due_date': get_time(NEXT_NEXT_WEEK, MONDAY, 9, 0)
         }
     )
     def test_due_date_calculation(self, test_case, submit_time, turnaround_time, expected_due_date):
